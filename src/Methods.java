@@ -14,7 +14,7 @@ public class Methods {
         boolean valid = false;
         while (!valid) {
             try {
-                inputMessage = br.readLine().split("\\.");
+                inputMessage = br.readLine().split("-");
                 for (String message : inputMessage) {
                     if (message.length() >= 250) {
                         throw new Exception("Max length is 250. Please try again.");
