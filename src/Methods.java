@@ -7,22 +7,30 @@ public class Methods {
     public static Queue<String> queue;
     public static Stack<String> stack;
 
-    public static String[] SendMessage() throws IOException{
+    public static String[] SendMessage() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] inputMessage = br.readLine().split("\\.");
-        int i = 0;
-        while (inputMessage.length > i){
-            if(inputMessage[i].length() <= 0){
-                System.out.println("The message is empty. Please enter again!!!");
+        String[] inputMessage = null;
+
+        boolean valid = false;
+        while (!valid) {
+            try {
                 inputMessage = br.readLine().split("\\.");
-            }else if(inputMessage[i].length() > 250){
-                System.out.println("Messages longer than 250 characters. Please enter again!!!");
-                inputMessage = br.readLine().split("\\.");
-            }else break;
+                for (String message : inputMessage) {
+                    if (message.length() >= 250) {
+                        throw new Exception("Max length is 250. Please try again.");
+                    } else if (message.length() == 0) {
+                        throw new Exception("Invalid input. Please try again.");
+                    }
+                }
+                valid = true;
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please try again.");
+            }
         }
         br.close();
         return inputMessage;
     }
+
 
     public static void TransferMessage(String[] transferMessage,Queue<String> queue){
         int i = 0;
